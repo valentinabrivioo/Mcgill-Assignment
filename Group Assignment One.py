@@ -11,15 +11,48 @@ import math
 from IPython.display import display
 
 def welcomeMessage():
-    print("Welcome to ______")
+    print("Welcome to YUL Montréal Airport")
     return
 
 def services():
-    #prints list of services
+    print("1 - Flight Information")
+    print("2 - Special Assistance")
+    print("3 - Facilities")
+    print("4 - Hotels Nearby")
+    print("5 - Transportation")
     return
 
 def scenarios():
     #has to take user input and then call the certain scenario asked for
+    finished = False
+    while not finished:
+        try:
+            userInput = int(input("Please give your answer (1, 2, 3, 4, 5): "))
+            if userInput==1:
+                scenarioOne()
+                finished=True
+            elif userInput==2:
+                scenarioTwo()
+                finished=True
+            elif userInput==3:
+                scenarioThree()
+                finished=True
+            elif userInput==4:
+                scenarioFour()
+                finished=True
+            elif userInput==5:
+                scenarioFive()
+                finished=True
+            else:
+                raise ValueError('Number not listed')
+        except Exception:
+            print("Error")
+            print("Try again? (yes/no)")
+            ifContinue = input().casefold()
+            if ifContinue == 'yes':
+                pass
+            else:
+                finished=True
     return
 
 #Eoghán
@@ -186,21 +219,44 @@ def scenarioOne():
 #-----------------------------------------------------------------------------------------------------------------------------------
 def scenarioTwo():
     return
+#-----------------------------------------------------------------------------------------------------------------------------------
 def scenarioThree():
     return
+#-----------------------------------------------------------------------------------------------------------------------------------
 def scenarioFour():
     return
+#-----------------------------------------------------------------------------------------------------------------------------------
 def scenarioFive():
     return
+#-----------------------------------------------------------------------------------------------------------------------------------
 
 def endMessage():
-    print("Thank you for visiting the website of _______")
+    print("Thank you for visiting the website of YUL Montréal Airport")
     return
 
 def checkRating():
-    #has to take user input and store a rating of the service
+    #Take user input of the rating of the service
+    finished = False
+    print("Please rate your service experience out of 10.")
+    while not finished:
+        try:
+            userInput = int(input("Please give your answer (1-10): "))
+            if 1 <= userInput <= 10:
+                print("Thank you for rating our service!")
+                finished=True
+            else:
+                raise ValueError('Number not listed')
+        except Exception:
+            print("Error")
+            print("Try again? (yes/no)")
+            ifContinue = input().casefold()
+            if ifContinue == 'yes':
+                pass
+            else:
+                finished=True
     return
 
+#MAIN
 welcomeMessage()
 finished = not True
 while not finished:
