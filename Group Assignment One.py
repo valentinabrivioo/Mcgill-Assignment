@@ -2,8 +2,14 @@
 """
 Created on Tue Mar  7 13:40:34 2023
 
-@author: eogha
+@author: Eoghán
 """
+import pandas as pd
+from datetime import datetime
+import requests
+import math
+from IPython.display import display
+
 def welcomeMessage():
     print("Welcome to ______")
     return
