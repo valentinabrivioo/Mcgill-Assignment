@@ -9,6 +9,7 @@ from datetime import datetime
 import requests
 import math
 from IPython.display import display
+from bs4 import BeautifulSoup
 
 def welcomeMessage():
     print("Welcome to YUL Montréal Airport")
