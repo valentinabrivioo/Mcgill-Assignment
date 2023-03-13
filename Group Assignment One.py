@@ -481,7 +481,453 @@ def travellingForeignStudent():
                 finished=True
 #-----------------------------------------------------------------------------------------------------------------------------------
 def scenarioThree():
-    return
+    # Create a dictionary of all facilities
+    area1 = "Restricted zone - Canada"
+    area2 = "Restricted zone - International"
+    area3 = "Restricted zone - USA"
+    facilities = {"PUB JOHN MOLSON": {"area": "Arrivals", "price": "$$$", "type": "Restaurant", "hours": "7.30 am to 8 pm"},
+                      "TIM HORTONS": {"area": "Arrivals", "price": "$", "type": "Cafe", "hours": "4 am to 8 pm"},
+                      "ILLY": {"area": "Public Area", "price": "$", "type": "Bar", "hours": "6.30 am to 2 pm"},
+                      "BURGER KING": {"area": "Public Area", "price": "$", "type": "Restaurant", "hours": "6 am to 9 pm"},
+                      "CAMDEN FOOD CO.": {"area": area1, "price": "$$", "type": "Restaurant", "hours": "5 am to 8 pm"},
+                      "JAVA U CAFE": {"area": area1, "price": "$", "type": "Cafe", "hours": "4.30 am to 7.30 pm"},
+                      "U RESTO BAR": {"area": area2, "price": "$$", "type": "Bar", "hours": "4 am to 11 pm"},
+                      "STARBUCKS": {"area": area2, "price": "$$", "type": "Cafe", "hours": "4 am to 8 pm"},
+                      "HOUSTON AVENUE GRILL": {"area": area3, "price": "$$$", "type": "Restaurant", "hours": "4 am to 7 pm"},
+                      "CAFE MONTREAL BAGELS": {"area": area3, "price": "$", "type": "Cafe", "hours": "4 am to 8 pm"},
+                      "FLEURISTE":{"area": "Arrivals", "price": "$$", "type": "Florist", "hours": "12 pm to 10 pm"},
+                      "1 MINUTE":{"area": "Arrivals", "price": "$", "type": "Snacks and reading", "hours": "12:15 pm to 8:15pm"},
+                      "REALY": {"area": "Public area", "price": "$", "type": "Snacks and reading", "hours": "1 pm to 8:30 pm"},
+                      "TRACKER": {"area": "Public area", "price": "$", "type": "Clothing and accessories", "hours": "5 am to 9 pm"},
+                      "ISTORE": {"area": area1, "price": "$$$", "type": "Technology", "hours": "11:30 am to 7:15 pm"},
+                      "HATLEY": {"area": area1, "price": "$$$", "type": "Clothing and accessories", "hours": "Not available"},
+                      "HORS TAXES": {"area": area2, "price": "$$", "type": "Duty Free", "hours": "4 am to 11 pm"},
+                      "THE SOURCE": {"area": area2, "price": "$$$", "type": "Technology", "hours": "Not available"},
+                      "MAISON DE LA PRESSE":{"area": area3, "price": "$$", "type": "Snacks and reading", "hours": "5:15 am to 7:15 pm"},
+                      "MC ELECTRONIQUE":{"area": area3, "price": "$$$", "type": "Technology", "hours": "5 am to 6:30 pm"}
+                    }
+    services = {"Wi-Fi" : "Aéroports de Montréal is pleased to offer Montréal–Trudeau users free high-speed wireless internet access everywhere in the terminal.To log on to the ADM network, YUL Wi-Fi, simply open your browser and agree to the terms and conditions of use when prompted, for up to 60 minutes of free browsing.For more time, simply start a new session.",
+                "Planespotting" :"Jacques-de-Lesseps Park, inaugurated in 2012, provides aviation enthusiasts with one of the best possible vantage points for observing the runways at Montréal–Trudeau. The park is located on ADM-owned land facing runways 24-L and 06-R, at the intersection of Halpern Avenue and Jenkins street.",
+                "Prayer Area" : "A multi-faith area for prayer and reflection is available to airport users. It is located in the transborder (U.S.) departures area, near the Java U restaurant.",
+                "Smoking Areas": "In accordance with regulations currently in effect, the Montréal–Trudeau terminal is a non-smoking environment. Smoking, including e-cigarettes, is strictly prohibited throughout the terminal building and on the apron. There are areas in front of the terminal where smoking cigarettes and e-cigarettes is permitted. Cannabis consumption is not permitted anywhere on the airport site.",
+                "Nursing Rooms" : "Most restrooms in the terminal have adjacent nursing rooms, equipped with a sink, chair, changing table and, in many cases, a microwave oven."
+               }
+
+    # Create list of restaurants, cafes and bars and shops
+    option_1 = ["Restaurant", "Restaurants","Restaurant area", "Restaurants area"]
+    option_2 = ["Cafe","Cafes","Café"]
+    option_3 = ["Bars","Bar"]
+    option_shop = ["Shopping", "Shopping area", "Shops", "Shoppingarea"]
+    option_services = ["Other Services", "Other","Services", "Otherservices"]
+    option_map = ["Explore the map","Explore","Map"]
+    restaurant_list = []
+    cafe_list = []
+    bar_list = []
+    shops_list = []
+    for facility in facilities:
+        if facilities[facility]["type"] == "Restaurant":
+            restaurant_list.append(facility)
+        elif facilities[facility]["type"] == "Cafe":
+            cafe_list.append(facility)
+        elif facilities[facility]["type"] == "Bar" :
+            bar_list.append(facility)
+        else:
+            shops_list.append(facility)
+
+    # Choosing the area - function
+    def chosen_area():
+        Finished = False
+        while not Finished:
+            area = input("\nChoose an area of YUL Airport between 'Arrivals' and 'Departures'(Including all restricted areas):\n")
+            area == area.capitalize()
+            if area == "Arrivals" or area == "Arrival":
+                Finished = True
+            elif area == "Departures":
+                finished = False
+                while not finished:
+                    area = input("Choose the correct departure area number:\n1: 'Restricted area - Canada',\n2: 'Restricted area - International',\n3: 'Restricted area - USA'\n")
+                    if area == "1":
+                        finished = True
+                    elif area == "2":
+                        finished = True
+                    elif area == "3":
+                        finished = True
+                Finished = True
+        return area
+
+    # Cheaper option - function
+    def cheap_option():
+        cheaper_option = input("\nWould you like to find cheaper option?")
+        cheaper_option = cheaper_option.capitalize()
+        if "Yes" in cheaper_option:
+            cheap_list = []
+            print("The following cheaper options have been found:")
+
+            # if chosen restaurant
+            if input_2 in option_1:
+                for i in restaurant_list:
+                    if facilities[i]["price"] == "$":
+                        cheap_list.append(i)
+                if len(cheap_list) != 0:
+                    for i in cheap_list:
+                        print("-",i,"in the area:", facilities[i]["area"]+".")
+                else:
+                    print("Oh! Unfortunately no other cheaper option is available")
+
+            # if chosen a cafe
+            if input_2 in option_2:
+                for i in cafe_list:
+                    if facilities[i]["price"] == "$":
+                        cheap_list.append(i)
+                if len(cheap_list) != 0:
+                    for i in cheap_list:
+                        print("-",i,"in the area:", facilities[i]["area"]+".")
+                else:
+                    print("Oh! Unfortunately no other cheaper option is available")
+
+            # if chosen a bar
+            if input_2 in option_3:
+                for i in bar_list:
+                    if facilities[i]["price"] == "$":
+                        cheap_list.append(i)
+                if len(cheap_list) != 0:
+                    for i in cheap_list:
+                        print("-",i,"in the area:", facilities[i]["area"]+".")
+                else:
+                    print("Oh! Unfortunately no other cheaper option is available")
+
+        elif "No" in cheaper_option:
+            print("Perfect!")
+
+    # Other option in the same area - function
+    def other_in_area():
+        if input_1 in option_1:
+            other_option = input("\nWould you like to find another option in this area?")
+            other_option = other_option.capitalize()
+        else:
+            other_option = "Yes"
+
+        if "Yes" in other_option:
+            other_list = []
+            print("The following options have been found in the same area", area + ":")
+            # if chosen arrivals
+            if area == "Arrivals" or area == "Arrival":
+                for i in facilities:
+                    if facilities[i]["area"] == "Arrivals":
+                        other_list.append(i)
+                for i in other_list:
+                    print("-",i+",", facilities[i]["type"])
+
+            # if chosen Public area
+            if area == "Public area":
+                for i in facilities:
+                    if facilities[i]["area"] == "Public Area":
+                        other_list.append(i)
+                for i in other_list:
+                    print("-", i+",", facilities[i]["type"])
+
+            # if chosen area 1
+            if area == "1":
+                for i in facilities:
+                    if facilities[i]["area"] == area1:
+                        other_list.append(i)
+                for i in other_list:
+                    print( "-",i+",", facilities[i]["type"])
+
+            # if chosen area 2
+            if area == "2":
+                for i in facilities:
+                    if facilities[i]["area"] == area2:
+                        other_list.append(i)
+                for i in other_list:
+                    print( "-",i+",", facilities[i]["type"])
+
+            # if chosen area 3
+            if area == "3":
+                for i in facilities:
+                    if facilities[i]["area"] == area3:
+                        other_list.append(i)
+                for i in other_list:
+                    print("-",i+",", facilities[i]["type"])
+
+        elif "No" in other_option:
+            print("Perfect!")
+
+    # Providing opening hours - function
+    def ask_hours():
+        finished = False
+        while not finished:
+            hours_question = input("\nWould you like to know the opening hours of one of our facilities?\n")
+            hours_question = hours_question.capitalize()
+            if hours_question == "Yes":
+                name = input("Which facility would you like to know the opening hours of?\n")
+                name = name.upper()
+                print("The facility", name, "has the following opening hours:", facilities[name]["hours"],"\n")
+                finished = True
+            if hours_question == "No" or hours_question == "no":
+                print("Perfect!")
+                finished = True
+
+    # Initial choice between restaurant area, shopping area, other services and map
+    done = False
+    while not done:
+        print("Hello, welcome to our YUL Airport facilities section. What are you looking for?")
+        print("- Restaurant area, \n- Shopping area, \n- Other services, \n- Explore the map.")
+        input_1 = input()
+        input_1 = input_1.capitalize()
+
+        # Restaurant area choice
+        if input_1 in option_1:
+            input_2 = input("\nAre you looking for Restaurants, Cafes or Bars?")
+            input_2 = input_2.capitalize()
+
+            # Restaurant choice
+            if input_2 in option_1:
+                print("\nThe Restaurants available in YUL Airport are:")
+                for i in restaurant_list:
+                    print(i)
+
+                # Choosing the area for the restaurant
+                area = chosen_area()
+
+                # Presenting the restaurants in the area
+                rest_area_list = []
+                if area == "Arrivals" or area == "Arrival":
+                    for restaurant in restaurant_list:
+                        if facilities[restaurant]["area"] == "Arrivals":
+                            rest_area_list.append(restaurant)
+                else:
+                    if area == "1":
+                        for restaurant in restaurant_list:
+                            if facilities[restaurant]["area"] == area1:
+                                rest_area_list.append(restaurant)
+                    elif area == "2":
+                        for restaurant in restaurant_list:
+                            if facilities[restaurant]["area"] == area2:
+                                rest_area_list.append(restaurant)
+                    elif area == "3":
+                        for restaurant in restaurant_list:
+                            if facilities[restaurant]["area"] == area3:
+                                rest_area_list.append(restaurant)
+                if rest_area_list == []:
+                    print("\nThere are no restaurants available in this are")
+                else: 
+                    print("\nThe restaurants available in this area are:")
+                    for i in rest_area_list:
+                        print("-",i)
+                    for i in rest_area_list:
+                        print("The opening hours are:"+facilities[i]["hours"])
+                        print("The price range is:"+facilities[i]["price"])
+                    # find a cheaper option
+                    cheap_option()
+
+                # find other option in the area
+                other_in_area()
+                # Ask for opening hours
+                ask_hours()
+
+                #Offering to go back to the initial menu
+                input_back = input("\nDo you want to go back to YUL Airport facilities menu?")
+                if input_back == "No" or input_back == "no":
+                    print("Enjoy your visit to YUL Airport!")
+                    done = True
+                print("\n")
+
+            # Cafe choice
+            elif input_2 in option_2:
+                print("\nThe Cafes available in YUL Airport are:")
+                for i in cafe_list:
+                    print(i)
+
+                # Choosing the area for the cafe
+                area = chosen_area()
+
+                # Presenting the cafes in the area
+                cafe_area_list = []
+                if area == "Arrivals" or area == "Arrival":
+                    for cafe in cafe_list:
+                        if facilities[cafe]["area"] == "Arrivals":
+                            cafe_area_list.append(cafe)
+                else:
+                    if area == "1":
+                        for cafe in cafe_list:
+                            if facilities[cafe]["area"] == area1:
+                                cafe_area_list.append(cafe)
+                    elif area == "2":
+                        for cafe in cafe_list:
+                            if facilities[cafe]["area"] == area2:
+                                cafe_area_list.append(cafe)
+                    elif area == "3":
+                        for cafe in cafe_list:
+                            if facilities[cafe]["area"] == area3:
+                                cafe_area_list.append(cafe)
+
+                if len(cafe_area_list) == 0:
+                    print("\nThere are no Cafes available in this area.\n")
+                else:
+                    print("\nThe cafes available in this area are:")
+                    for i in cafe_area_list:
+                        print("-",i)
+                    for i in cafe_area_list:
+                        print("The opening hours are:"+ facilities[i]["hours"])
+                        print("The price range is:"+ facilities[i]["price"])
+                    # find a cheaper option
+                    cheap_option()
+
+                # Find other option in the area
+                other_in_area()
+
+                # Ask for opening hours
+                ask_hours()
+
+                #Offering to go back to the initial menu
+                input_back = input("\nDo you want to go back to YUL Airport facilities menu?")
+                if input_back == "No" or input_back == "no":
+                    print("Enjoy your visit to YUL Airport!")
+                    done = True
+                print("\n")
+
+            # Bar choice
+            elif input_2 in option_3:
+                print("\nThe Bars available in YUL Airport are:")
+                for i in bar_list:
+                    print(i)
+
+                # choosing the area for the bar
+                area = chosen_area()
+
+                # Presenting the bars in the area
+                bar_area_list = []
+                if area == "Arrivals" or area == "Arrival":
+                    for bar in bar_list:
+                        if facilities[bar]["area"] == "Arrivals":
+                            bar_area_list.append(bar)
+                else:
+                    if area == "1":
+                        for bar in bar_list:
+                            if facilities[bar]["area"] == area1:
+                                bar_area_list.append(bar)
+                    elif area == "2":
+                        for bar in bar_list:
+                            if facilities[bar]["area"] == area2:
+                                bar_area_list.append(bar)
+                    elif area == "3":
+                        for bar in bar_list:
+                            if facilities[bar]["area"] == area3:
+                                bar_area_list.append(bar)
+                if bar_area_list == []:
+                    print("\nThere are no bars available in this area")
+                else: 
+                    print("\nThe Bars available in this area are:")
+                    for i in bar_area_list:
+                        print("-",i)
+                    for i in bar_area_list:
+                        print("The opening hours are:"+facilities[i]["hours"])
+                        print("The price range is:"+facilities[i]["price"])
+                    # find a cheaper option
+                    cheap_option()
+
+                # find other options in the area
+                other_in_area()
+
+                # Ask for opening hours
+                ask_hours()
+
+                #Offering to go back to the initial menu
+                input_back = input("\nDo you want to go back to YUL Airport facilities menu?")
+                if input_back == "No" or input_back == "no":
+                    print("Enjoy your visit to YUL Airport!")
+                    done = True
+                print("\n")
+
+
+        # Shopping area choice
+        elif input_1 in option_shop:
+            finished = False
+            while not finished:
+                input_2 = input("What kind of shop are you looking for?\n1- Florist,\n2- Snacks and Reading,\n3- Technology,\n4- Duty Free,\n5- Clothing and accessories. \nPlease indicate the number of the choice.")
+                print("\nThe following shops are available: ")
+                if input_2 == "1":
+                    for i in shops_list:
+                        if facilities[i]["type"] == "Florist":
+                            print("-", i,"in the area:",facilities[i]["area"])
+                            finished = True
+                elif input_2 == "2":
+                   for i in shops_list:
+                       if facilities[i]["type"] == "Snacks and reading":
+                           print("-", i,"in the area:",facilities[i]["area"])
+                           finished = True
+                elif input_2 == "3":
+                   for i in shops_list:
+                       if facilities[i]["type"] == "Technology":
+                           print("-", i,"in the area:",facilities[i]["area"])
+                           finished = True
+                elif input_2 == "4":
+                   for i in shops_list:
+                       if facilities[i]["type"] == "Duty Free":
+                           print("-", i,"in the area:",facilities[i]["area"])
+                           finished = True
+                elif input_2 == "5":
+                   for i in shops_list:
+                       if facilities[i]["type"] == "Clothing and accessories":
+                           print("-", i,"in the area:",facilities[i]["area"])
+                           finished = True
+                else:
+                   print("Oh! Something must have gone wrong, make sure to indicate the number of the choice")
+
+            option = input("\nWould you like to explore other Shops?")   
+            option = option.capitalize()
+            if option == "Yes":    
+                # choosing the area for the shop
+                area = chosen_area()
+                # find other options in the area
+                other_in_area()
+
+            # Ask for opening hours
+            ask_hours()
+
+            #Offering to go back to the initial menu
+            input_back = input("\nDo you want to go back to YUL Airport facilities menu?")
+            if input_back == "No" or input_back == "no":
+                print("Enjoy your visit to YUL Airport!")
+                done = True
+            print("\n")
+
+
+        # Explore services
+        if input_1 in option_services: 
+            print("\nHere is a list of additional services offered by YUL Airport:")
+            list_services = list(services.keys())
+            for i in range(1,len(services)): 
+                print(i,"-",list_services[i-1])
+            # Providing information about the chosen service
+            while True:
+                try:
+                    input_2 = input("Select the corresponding number for further information about YUL Airport services\n")
+                    print("\n"+services[list_services[int(input_2)-1]])
+                    break
+                except:
+                    continue
+
+            #Offering to go back to the initial menu
+            input_back = input("\nDo you want to go back to YUL Airport facilities menu?")
+            if input_back == "No" or input_back == "no":
+                print("Enjoy your visit to YUL Airport!")
+                done = True
+            print("\n")
+
+        # Explore the map, providing a link to the airport map
+        explore = ["Explore the map", "Explore","Map"]
+        if input_1 in option_map:
+            print("Here you can explore the map of YUL Airport, enjoy your stay!")
+            print("Click on this link: https://www.admtl.com/sites/default/files/2023/MAP-DEPARTS-ARRIVEES.pdf?panel=filters&dcenter=45.454073,-73.748789&dczoom=16 ")
+
+            #Offering to go back to the initial menu
+            input_back = input("\nDo you want to go back to YUL Airport facilities menu?")
+            if input_back == "No" or input_back == "no":
+                done = True
+                print("Enjoy your visit to YUL Airport!")
+            print("\n")
 #-----------------------------------------------------------------------------------------------------------------------------------
 hotels = {'A': 
               {'Name': 'Omni Mont-Royal',
