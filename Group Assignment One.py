@@ -483,8 +483,198 @@ def travellingForeignStudent():
 def scenarioThree():
     return
 #-----------------------------------------------------------------------------------------------------------------------------------
+hotels = {'A': 
+              {'Name': 'Omni Mont-Royal',
+               'Price': 125,
+               'Filter': 'Pet-friendly',
+               'Type':'Bed & breakfast', 
+               'Star': 3, 
+               'PopularLocation':'Montreal and vicinity'},
+          'B': 
+              {'Name': 'Birks',
+               'Price' : 100, 
+               'Filter' : 'Spa',
+               'Type':'Bed & breakfast', 
+               'Star': 4, 
+               'PopularLocation':'Downtown Montreal'},
+          'C': 
+              {'Name': 'William Gray',
+               'Price' : 85, 
+               'Filter' : 'Pool',
+               'Type':'Bed & breakfast', 
+               'Star': 2, 
+               'PopularLocation':'Montreal and vicinity'},
+          'D': 
+              {'Name': 'Zero 1',
+               'Price' : 156, 
+               'Filter' : 'Pool',
+               'Type':'Bed & breakfast', 
+               'Star': 4, 
+               'PopularLocation':'Old Montreal'},
+          'E': 
+              {
+               'Name': 'Chrome',
+               'Price' : 210, 
+               'Filter' : 'Pet-friendly',
+               'Type':'Bed & breakfast', 
+               'Star': 5, 
+               'PopularLocation':'Montreal (YUL-Pierre Elliott Trudeau Intl.)'},
+          'F': 
+              {'Name': 'Le Petit Hotel',
+               'Price' : 225, 
+               'Filter' : 'Pool',
+               'Type':'Bed & breakfast', 
+               'Star': 3, 
+               'PopularLocation':'Montreal and vicinity'},
+          'G': 
+              {'Name': 'Royal',
+               'Price' : 156, 
+               'Filter' : 'Pool',
+               'Type':'Bed & breakfast', 
+               'Star': 5, 
+               'PopularLocation':'Old Montreal'},
+          'H': 
+              {'Name': 'Ruby',
+               'Price' : 125, 
+               'Filter' : 'Spa',
+               'Type':'Bed & breakfast', 
+               'Star': 4, 
+               'PopularLocation':'Downtown Montreal'},
+          'I': 
+              {'Name': 'Queen',
+               'Price' : 213, 
+               'Filter' : 'Pet-friendly',
+               'Type':'Bed & breakfast', 
+               'Star': 2, 
+               'PopularLocation':'Downtown Montreal'},
+          'J': 
+              {'Name': 'Faubourg',
+               'Price' : 96, 
+               'Filter' : 'Pool',
+               'Type':'Bed & breakfast', 
+               'Star': 4, 
+               'PopularLocation':'Old Montreal'}}
+#ranges 
+rangeHotelPrice = [0, 50, 100, 150, 200, 250, 300, 350, 400]
+rangeHotelFilter = ['Pool', 'Spa', 'Pet-friendly', 'Bed & breakfast', 'YUL-Pierre Elliott Trudeau Intl.']
+rangeHotelType = ['Bed & breakfast', 'Hostel/Backpacker accommodation', 'Motel']
+rangeHotelStar = [1, 2, 3, 4, 5]
+rangeHotelPopularLocation = ['Montreal and vicinity', 'Montreal (YUL-Pierre Elliott Trudeau Intl.)', 'Downtown Montreal', 'Old Montreal']
+  #-----------------------------------
+  
+ #Selection of area
 def scenarioFour():
-    return
+     print("Which area would you like the hotel to be in?")
+     print("1: Montreal and vicinity")
+     print("2: Montreal (YUL-Pierre Elliott Trudeau Intl.)")
+     print("3: Downtown Montreal")
+     print("4: Old Montreal")
+     finished = False
+     while not finished:
+        try:
+            userInput = int(input("Please select 1,2,3, or 4: "))
+            if userInput==1: 
+                hotels_in_area = find_hotels_in_area('Montreal and vicinity') 
+                finished=True
+            elif userInput==2:
+                hotels_in_area = get_hotels_in_area('Montreal (YUL-Pierre Elliott Trudeau Intl.)') 
+                finished=True
+            elif userInput==3:
+                hotels_in_area = find_hotels_in_area('Downtown Montreal')
+                finished=True
+            elif userInput==4:
+               hotels_in_area = find_hotels_in_area('Old Montreal')
+                finished=True
+            else:
+                print("Invalid input. Please try again.")
+     recommended_hotels = []    
+     for hotel_name, hotel_info in hotels.items():
+         if hotel_info['PopularLocation'] == get_popular_location(area_choice):
+             recommended_hotels.append(hotel_name)  
+     print("Based on your selected area, the following hotels are reecommended: ")
+     print(recommended_hotels)    
+    
+#Selection of price range
+def select_price():
+    print("What is your budget per night?")
+    print("1: $50 - $100")
+    print("2: $100 - $150")
+    print("3: $150 - $200")
+    print("4: $200 - $250")
+    finished = False
+    while not finished:
+       try:
+            userInput = int(input("Please select 1,2,3, or 4 "))
+            if userInput==1:
+                price_range = "$50 - $100" 
+                finished=True
+            elif userInput==2:
+                price_range = "$100 - $150" 
+                finished=True
+            elif userInput==3:
+                price_range = "$150 - $200" 
+                finished=True
+            elif userInput==4:
+                price_range = "$200 - $250" 
+                finished=True
+            else:
+                raise ValueError('Invalid input. Please try again.')
+    recommended_hotels2 = []    
+    for hotel_name, hotel_info in hotels.items():
+        if hotel_info['Price'] == get_price(price_range):
+            recommended_hotels2.append(hotel_name)
+    print("Based on your selected area, the following hotels are recommended: ")
+    print(recommended_hotels2)   
+    
+def get_price(price_range):
+    price = ""
+    if price_range == "$50 - $100":
+        price = "50-100"
+    elif price_range == "$100 - $150":
+        price = "100-150"
+    elif price_range == "$150 - $200":
+        price = "150-200"
+    elif price_range == "$200 - $250":
+        price = "200-250"
+    return price
+
+#Selectin of number of stars 
+def select_star():
+    finished=False
+    print("What star rating would you like?")
+    print("Which area would you like the hotel to be in?")
+    print("1: 1 star")
+    print("2: 2 stars")
+    print("3: 3 stars")
+    print("4: 4 stars")
+    print("5: 5 stars")
+    finished = False
+    while not finished:
+       try:
+            userInput = int(input("Please select 1,2,3,4, or 5 "))
+            if userInput==1:
+                hotels_stars = get_hotels_stars('1') 
+                finished=True
+            elif userInput==2:
+                hotels_stars = get_hotels_stars('2') 
+                finished=True
+            elif userInput==3:
+                hotels_stars = get_hotels_stars('3') 
+                finished=True
+            elif userInput==4:
+               hotels_stars = get_hotels_stars('4')
+                finished=True
+            elif userInput==5:
+               hotels_stars = get_hotels_stars('5')
+                finished=True
+            else:
+                raise ValueError('Invalid answer')
+    recommended_hotels3 = []     
+    for hotel_name, hotel_info in hotels.items():
+        if hotel_info['Star'] == get_star(userInput):
+            recommended_hotels3.append(hotel_name)       
+    print("Based on your selected area, the following hotels are recommended: ")
+    print(recommended_hotels3)
 #-----------------------------------------------------------------------------------------------------------------------------------
 def scenarioFive():
     return
