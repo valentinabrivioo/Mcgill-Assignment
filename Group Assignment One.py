@@ -4,6 +4,7 @@ Created on Tue Mar  7 13:40:34 2023
 
 @author: Eoghán
 """
+
 import pandas as pd
 from datetime import datetime
 import requests
@@ -19,7 +20,7 @@ def services():
     print("1 - Flight Information")
     print("2 - Special Assistance")
     print("3 - Facilities")
-    print("4 - Hotels Nearby")
+    print("4 - Accomodation")
     print("5 - Transportation")
     return
 
@@ -47,7 +48,7 @@ def scenarios():
             else:
                 raise ValueError('Number not listed')
         except Exception:
-            print("Error")
+            print("Oh! I do not seem to understand!")
             print("Try again? (yes/no)")
             ifContinue = input().casefold()
             if ifContinue == 'yes':
@@ -917,7 +918,6 @@ def scenarioThree():
             print("\n")
 
         # Explore the map, providing a link to the airport map
-        explore = ["Explore the map", "Explore","Map"]
         if input_1 in option_map:
             print("Here you can explore the map of YUL Airport, enjoy your stay!")
             print("Click on this link: https://www.admtl.com/sites/default/files/2023/MAP-DEPARTS-ARRIVEES.pdf?panel=filters&dcenter=45.454073,-73.748789&dczoom=16 ")
@@ -929,201 +929,326 @@ def scenarioThree():
                 print("Enjoy your visit to YUL Airport!")
             print("\n")
 #-----------------------------------------------------------------------------------------------------------------------------------
-hotels = {'A': 
-              {'Name': 'Omni Mont-Royal',
-               'Price': 125,
-               'Filter': 'Pet-friendly',
-               'Type':'Bed & breakfast', 
-               'Star': 3, 
-               'PopularLocation':'Montreal and vicinity'},
-          'B': 
-              {'Name': 'Birks',
-               'Price' : 100, 
-               'Filter' : 'Spa',
-               'Type':'Bed & breakfast', 
-               'Star': 4, 
-               'PopularLocation':'Downtown Montreal'},
-          'C': 
-              {'Name': 'William Gray',
-               'Price' : 85, 
-               'Filter' : 'Pool',
-               'Type':'Bed & breakfast', 
-               'Star': 2, 
-               'PopularLocation':'Montreal and vicinity'},
-          'D': 
-              {'Name': 'Zero 1',
-               'Price' : 156, 
-               'Filter' : 'Pool',
-               'Type':'Bed & breakfast', 
-               'Star': 4, 
-               'PopularLocation':'Old Montreal'},
-          'E': 
-              {
-               'Name': 'Chrome',
-               'Price' : 210, 
-               'Filter' : 'Pet-friendly',
-               'Type':'Bed & breakfast', 
-               'Star': 5, 
-               'PopularLocation':'Montreal (YUL-Pierre Elliott Trudeau Intl.)'},
-          'F': 
-              {'Name': 'Le Petit Hotel',
-               'Price' : 225, 
-               'Filter' : 'Pool',
-               'Type':'Bed & breakfast', 
-               'Star': 3, 
-               'PopularLocation':'Montreal and vicinity'},
-          'G': 
-              {'Name': 'Royal',
-               'Price' : 156, 
-               'Filter' : 'Pool',
-               'Type':'Bed & breakfast', 
-               'Star': 5, 
-               'PopularLocation':'Old Montreal'},
-          'H': 
-              {'Name': 'Ruby',
-               'Price' : 125, 
-               'Filter' : 'Spa',
-               'Type':'Bed & breakfast', 
-               'Star': 4, 
-               'PopularLocation':'Downtown Montreal'},
-          'I': 
-              {'Name': 'Queen',
-               'Price' : 213, 
-               'Filter' : 'Pet-friendly',
-               'Type':'Bed & breakfast', 
-               'Star': 2, 
-               'PopularLocation':'Downtown Montreal'},
-          'J': 
-              {'Name': 'Faubourg',
-               'Price' : 96, 
-               'Filter' : 'Pool',
-               'Type':'Bed & breakfast', 
-               'Star': 4, 
-               'PopularLocation':'Old Montreal'}}
-#ranges 
-rangeHotelPrice = [0, 50, 100, 150, 200, 250, 300, 350, 400]
-rangeHotelFilter = ['Pool', 'Spa', 'Pet-friendly', 'Bed & breakfast', 'YUL-Pierre Elliott Trudeau Intl.']
-rangeHotelType = ['Bed & breakfast', 'Hostel/Backpacker accommodation', 'Motel']
-rangeHotelStar = [1, 2, 3, 4, 5]
-rangeHotelPopularLocation = ['Montreal and vicinity', 'Montreal (YUL-Pierre Elliott Trudeau Intl.)', 'Downtown Montreal', 'Old Montreal']
-  #-----------------------------------
-  
- #Selection of area
-def scenarioFour():
-     print("Which area would you like the hotel to be in?")
-     print("1: Montreal and vicinity")
-     print("2: Montreal (YUL-Pierre Elliott Trudeau Intl.)")
-     print("3: Downtown Montreal")
-     print("4: Old Montreal")
-     finished = False
-     while not finished:
-        try:
-            userInput = int(input("Please select 1,2,3, or 4: "))
-            if userInput==1: 
-                hotels_in_area = find_hotels_in_area('Montreal and vicinity') 
-                finished=True
-            elif userInput==2:
-                hotels_in_area = get_hotels_in_area('Montreal (YUL-Pierre Elliott Trudeau Intl.)') 
-                finished=True
-            elif userInput==3:
-                hotels_in_area = find_hotels_in_area('Downtown Montreal')
-                finished=True
-            elif userInput==4:
-               hotels_in_area = find_hotels_in_area('Old Montreal')
-                finished=True
-            else:
-                print("Invalid input. Please try again.")
-     recommended_hotels = []    
-     for hotel_name, hotel_info in hotels.items():
-         if hotel_info['PopularLocation'] == get_popular_location(area_choice):
-             recommended_hotels.append(hotel_name)  
-     print("Based on your selected area, the following hotels are reecommended: ")
-     print(recommended_hotels)    
-    
-#Selection of price range
-def select_price():
-    print("What is your budget per night?")
-    print("1: $50 - $100")
-    print("2: $100 - $150")
-    print("3: $150 - $200")
-    print("4: $200 - $250")
-    finished = False
-    while not finished:
-       try:
-            userInput = int(input("Please select 1,2,3, or 4 "))
-            if userInput==1:
-                price_range = "$50 - $100" 
-                finished=True
-            elif userInput==2:
-                price_range = "$100 - $150" 
-                finished=True
-            elif userInput==3:
-                price_range = "$150 - $200" 
-                finished=True
-            elif userInput==4:
-                price_range = "$200 - $250" 
-                finished=True
-            else:
-                raise ValueError('Invalid input. Please try again.')
-    recommended_hotels2 = []    
-    for hotel_name, hotel_info in hotels.items():
-        if hotel_info['Price'] == get_price(price_range):
-            recommended_hotels2.append(hotel_name)
-    print("Based on your selected area, the following hotels are recommended: ")
-    print(recommended_hotels2)   
-    
-def get_price(price_range):
-    price = ""
-    if price_range == "$50 - $100":
-        price = "50-100"
-    elif price_range == "$100 - $150":
-        price = "100-150"
-    elif price_range == "$150 - $200":
-        price = "150-200"
-    elif price_range == "$200 - $250":
-        price = "200-250"
-    return price
 
-#Selectin of number of stars 
-def select_star():
-    finished=False
-    print("What star rating would you like?")
-    print("Which area would you like the hotel to be in?")
-    print("1: 1 star")
-    print("2: 2 stars")
-    print("3: 3 stars")
-    print("4: 4 stars")
-    print("5: 5 stars")
+def scenarioFour():
+    hotels = {'A': 
+                  {'Name': 'OMNI MONT-ROYAL',
+                   'Price': 125,
+                   'Filter': 'Pet-friendly',
+                   'Type':'Bed & breakfast', 
+                   'Star': "3", 
+                   'PopularLocation':'Montreal and vicinity'},
+              'B': 
+                  {'Name': 'BIRKS',
+                   'Price' : 100, 
+                   'Filter' : 'Spa',
+                   'Type':'Bed & breakfast', 
+                   'Star': "4", 
+                   'PopularLocation':'Downtown Montreal'},
+              'C': 
+                  {'Name': 'WILLIAM GRAY',
+                   'Price' : 85, 
+                   'Filter' : 'Pool',
+                   'Type':'Bed & breakfast', 
+                   'Star': "2", 
+                   'PopularLocation':'Montreal and vicinity'},
+              'D': 
+                  {'Name': 'ZERO 1',
+                   'Price' : 156, 
+                   'Filter' : 'Pool',
+                   'Type':'Bed & breakfast', 
+                   'Star': "4", 
+                   'PopularLocation':'Old Montreal'},
+              'E': 
+                  {
+                   'Name': 'CHROME',
+                   'Price' : 210, 
+                   'Filter' : 'Pet-friendly',
+                   'Type':'Bed & breakfast', 
+                   'Star': "5", 
+                   'PopularLocation':'Montreal (YUL-Pierre Elliott Trudeau Intl.)'},
+              'F': 
+                  {'Name': 'LE PETIT HOTEL',
+                   'Price' : 225, 
+                   'Filter' : 'Pool',
+                   'Type':'Bed & breakfast', 
+                   'Star': "3", 
+                   'PopularLocation':'Montreal and vicinity'},
+              'G': 
+                  {'Name': 'ROYAL',
+                   'Price' : 156, 
+                   'Filter' : 'Pool',
+                   'Type':'Bed & breakfast', 
+                   'Star': "5", 
+                   'PopularLocation':'Old Montreal'},
+              'H': 
+                  {'Name': 'RUBY',
+                   'Price' : 125, 
+                   'Filter' : 'Spa',
+                   'Type':'Bed & breakfast', 
+                   'Star': "4", 
+                   'PopularLocation':'Downtown Montreal'},
+              'I': 
+                  {'Name': 'QUEEN',
+                   'Price' : 213, 
+                   'Filter' : 'Pet-friendly',
+                   'Type':'Bed & breakfast', 
+                   'Star': "2", 
+                   'PopularLocation':'Downtown Montreal'},
+              'J': 
+                  {'Name': 'FAUBOURG',
+                   'Price' : 96, 
+                   'Filter' : 'Pool',
+                   'Type':'Bed & breakfast', 
+                   'Star': "4", 
+                   'PopularLocation':'Old Montreal'}}
+    
+    #Creating a list of possible star ratings
+    rangeHotelStar = ["1", "2", "3", "4", "5"]
+    #Creating a list of hotels
+    hotel_list = []
+    for i in hotels:
+        hotel_list.append(hotels[i]["Name"])
+    
+    
+    #Selection of hotels in the selected area
+    def find_hotels_in_area(area):
+        hotels_in_area = []
+        for hotel in hotels:
+            if hotels[hotel]["PopularLocation"] == area:
+                hotels_in_area.append(hotels[hotel]["Name"])
+        return hotels_in_area
+                   
+    def get_price():
+        done = False
+        while not done: 
+            hotel = input("\nWhich hotel would you like to know the price of?")
+            hotel = hotel.upper()
+            try:
+                if hotel in hotel_list:
+                    for i in hotels:
+                        if hotels[i]["Name"] == hotel:
+                            print("\nThe price of the hotel selected is:", hotels[i]["Price"]+"CA$")
+                            done = True
+                        else:
+                            continue
+                else:
+                    print("\nOh! I do not seem to understand. Please select an hotel among the following:")
+                    for i in hotels:
+                        print("-",hotels[i]["Name"]+","+hotels[i]["Type"]+", "+hotels[i]["Filter"])
+            except:
+                print("\nOopsie! I do not seem to understand. Please select an hotel among the following:")
+                for i in hotels:
+                    print("-",hotels[i]["Name"]+","+hotels[i]["Type"]+", "+hotels[i]["Filter"])
+                    
+    #Selectin of number of stars 
+    def select_star():
+        finished=False
+        print("What star rating would you prefer?")
+        print("1: 1 star")
+        print("2: 2 stars")
+        print("3: 3 stars")
+        print("4: 4 stars")
+        print("5: 5 stars")
+    
+        finished = False
+        while not finished:
+            userInput = input("\nPlease select 1, 2, 3, 4, or 5:")
+            suggestion_hotels2 = []
+            if userInput in rangeHotelStar:
+                for i in hotels:
+                    if hotels[i]["Name"] in suggestion_hotels:
+                        if hotels[i]["Star"] == userInput:
+                            suggestion_hotels2.append(hotels[i]["Name"])
+                if len(suggestion_hotels2) != 0:
+                    print("\nBased on your selected area, the following hotels are recommended:")
+                    for i in suggestion_hotels2:
+                        print("-",i)
+                else: 
+                    print("Unfortnately there is no option in this area with the desired rating!")
+                    print("Here are the hotels available in the area and their corresponding rating:")
+                    for i in hotels:
+                        if hotels[i]["Name"] in suggestion_hotels:
+                            print("-",hotels[i]["Name"] + ", rating:",hotels[i]["Star"])
+                finished = True
+            else:
+                print("\nOh! I do not seem to understand!")
+    
+    #Main interaction: choice of area and suggestion of hotels
+    print("\nWhich area would you like the hotel to be in?")
+    print("1: Montreal and vicinity")
+    print("2: Montreal (YUL-Pierre Elliott Trudeau Intl.)")
+    print("3: Downtown Montreal")
+    print("4: Old Montreal")
     finished = False
     while not finished:
-       try:
-            userInput = int(input("Please select 1,2,3,4, or 5 "))
-            if userInput==1:
-                hotels_stars = get_hotels_stars('1') 
+        try:
+            userInput = int(input("\nPlease select 1, 2, 3, or 4:"))
+            if userInput==1: 
+                suggestion_hotels = find_hotels_in_area('Montreal and vicinity') 
                 finished=True
             elif userInput==2:
-                hotels_stars = get_hotels_stars('2') 
+                suggestion_hotels = find_hotels_in_area('Montreal (YUL-Pierre Elliott Trudeau Intl.)') 
                 finished=True
             elif userInput==3:
-                hotels_stars = get_hotels_stars('3') 
+                suggestion_hotels = find_hotels_in_area('Downtown Montreal')
                 finished=True
             elif userInput==4:
-               hotels_stars = get_hotels_stars('4')
-                finished=True
-            elif userInput==5:
-               hotels_stars = get_hotels_stars('5')
-                finished=True
-            else:
-                raise ValueError('Invalid answer')
-    recommended_hotels3 = []     
-    for hotel_name, hotel_info in hotels.items():
-        if hotel_info['Star'] == get_star(userInput):
-            recommended_hotels3.append(hotel_name)       
-    print("Based on your selected area, the following hotels are recommended: ")
-    print(recommended_hotels3)
+               suggestion_hotels = find_hotels_in_area('Old Montreal')
+               finished=True
+        except:
+            print("Oh! I do not seem to understand. Please try again by inserting the number of your choice.")
+    
+    print("Based on your selected area, the following hotels are reccommended: ")
+    for i in suggestion_hotels:
+        print("-",i)
+
+    finished = False
+    while not finished:
+        star_choice = input("Would you like to filter the reccomendations by star?")
+        star_choice = star_choice.capitalize()
+        if star_choice == "Yes":
+            select_star()
+            finished = True
+        elif star_choice == "No":
+            print("Perfect")
+            finished = True
+        else: 
+            print("Oh! I do not seem to understand. Try answering with Yes or No!")
+    
+    finished = False
+    while not finished:
+        request_price = input("Would you like to know the price range of any hotel?")
+        request_price = request_price.capitalize()
+        if request_price == "Yes":
+            get_price()
+            finished = True
+        elif request_price == "No":
+            print("Perfect!")
+            finished = True
+        else: 
+            print("Oh! I do not seem to understand. Try answering with Yes or No!")
+    
 #-----------------------------------------------------------------------------------------------------------------------------------
 def scenarioFive():
-    return
+    finish = False
+    while not finish:
+        user_ans1 = input("\nWould you like to know information about parking or transportation?")
+        if user_ans1.casefold() == "parking":
+            finish = True
+            done = False
+            while not done:
+                user_ans6=input("\nWould you prefer to park indoors or outdoors?")
+                if user_ans6.casefold()=="indoors":
+                    print("You have chosen idoors.")
+                    done = True
+                    finished = False
+                    while not finished:
+                        user_ans8=input("\nWould you like to know the parking rates or parking options?")
+                        if user_ans8.casefold()== "parking rates":
+                            import pandas as pd
+                            data_indoor = {'Options': ['Multilevel', 'Short term'],
+                                    '20 min': ['8$', '$8'],
+                                    '1 day': ['$45', '$36']}
+                            df = pd.DataFrame(data_indoor)
+                            print(df)
+                            finished = True
+                        elif user_ans8.casefold()=="parking options":
+                            print("You have chosen parking options"
+                                  "The parking options are the following: Multilevel or Short term parking (temporarily closed)")
+                            finished = True
+                        else:
+                            print("\nSorry, that is not a valid choice.")
+                elif user_ans6=="outdoors":
+                    print("You have chosen outdoors.")
+                    done = True
+                    while not finished:
+                        user_ans7=input("\nWould you like to know the parking rates or parking options?")
+                        if user_ans7.casefold()=="parking rates" or user_ans7 == "rates":
+                            print("You have chosen parking rates")
+                            import pandas as pd
+                            data_outdoor = {'Options': ['Valet Parc', 'Hotel Parc', 'Econo Parc', 'AeroParc'],
+                                    '20 min': ['-', '$10', '-', '-'],
+                                    '1 day': ['$50', '$45', '$30', '$30']}
+                            df = pd.DataFrame(data_outdoor)
+                            print(df)
+                            finished = True
+                        elif user_ans7.casefold()=="parking options":
+                            print("You have chosen parking options"
+                                  "The parking options are the following: valet parking, econoparc or aeroparc")
+                            finished = True
+                        else:
+                            print("\nSorry, unfortunately that is not a valid choice.")
+                else:
+                    print("\nSorry, unfortunately that is not a valid choice.")
+        elif user_ans1 == "transportation":
+            print("You have chosen to learn the information about transportation.")
+            finish = True
+            finished = False
+            while not finished:
+                    user_ans2 = input("\nWould you like the information about buses, taxis or car rentals? ")
+                    if user_ans2.casefold()=="buses" or user_ans2.casefold()=="busses":
+                        finished = True
+                        print("You have chosen to learn about the information on buses. ")
+                        while True:
+                            user_ans4=input("\nDo you want to know about the rates or the buses ?")
+                            if user_ans4.casefold()=="rates":
+                                print("You have chosen rates."
+                                      "The rates for the 747 Express bus cost $11."
+                                      "The regular service for buses #204, 209, and 460 cost $3.50.")
+                                break
+                            elif user_ans4.casefold()=="buses" or user_ans4.casefold() == "busses":
+                                print("You have chosen buses."
+                                      "There are 2 different types of buses."
+                                      "First, there is the 747 Express bus which goes downtown and connects the airport to 11 stops in Montreal." 
+                                      "It is in continuous service."
+                                      "Second, there is the regular service from the Society of Transportation in Montreal #204, 209, and 460 that connects the airport to some places in Montreal.")
+                                break
+                            else:
+                                print("\nSorry, unfortunately that is not a valid choice.")
+                    elif user_ans2.casefold() == "taxis":
+                        finished = True
+                        print("You have chosen to learn about the information on taxis. To learn about the rates, please select where you plan on going.")
+                        while True:
+                            user_ans3=input("\nAre you go going downtown or another location?")
+                            if user_ans3.casefold()=="downtown":
+                                print("You have chosen downtown."
+                                      "Between 5AM and 11PM, the flat rate is $48.40."
+                                      "Outside of these hours, the flat rate is $55.65")
+                                break
+                            elif user_ans3.casefold()=="other locations":
+                                print("You have chosen other locations."
+                                      "Between 5AM and 11PM, the rate is $4.10/km and the minimum charge is $20.60."
+                                      "Outside of these hours, $4.70/km and the minimum charge is $23.70")
+                                break
+                            else:
+                                print("\nSorry, unfortunately that is not a valid choice.")
+                            
+                    elif user_ans2 == "car rentals":
+                        finished = True
+                        print("You have chosen to learn about car rentals.")
+                        while True:
+                            user_ans5=input("\nDo you want to know the location or companies of car rentals?")
+                            if user_ans5.casefold()=="location":
+                                print("You have chosen location."
+                                      "Please follow signs for 'Ground Transportation Building.'"
+                                      "We are located directly inside that facility.  It is approximately a 5-10 minute walk from baggage claim, located in a separate building from the terminal and to the left. ")
+                                break
+                            elif user_ans5.casefold()=="companies":
+                                print("You have chosen companies. Here are the information to contact car rental companies")
+                                import pandas as pd
+                                car_rentals = {'Company': ['Alamo', 'Avis', 'Budget', 'Dollar', 'Enterprise', 'Hertz', 'National', 'Thrifty'],
+                                'Phone': ['514 633-1222', '514 636-1902', '514 636-0052', '514 636-9530', '514 631-4545', '514 636-9530', '514 636-9030', '514 636-9530'],
+                                'Toll-Free': ['1 800 462-5266', '1 800 879-2847', '1 800 268-8970', '1 800 800-4000', '1 800 736-8222', '1 800 263-0678', '1 800 227-7368', '1 800 847-4389']}
+                                df = pd.DataFrame(car_rentals)
+                                print(df)
+                                break
+                            else:
+                                print("\nSorry, unfortunately that is not a valid choice.")
+                    else:
+                        print("\nSorry, unfortunately that is not a valid choice. Please choose between buses, taxis or car rentals.")
+        else:
+            print("\nSorry, unfortunately that is not a valid choice. Please choose between parking or transportation.")
 #-----------------------------------------------------------------------------------------------------------------------------------
 
 def endMessage():
@@ -1166,5 +1291,3 @@ while not finished:
         finished = True
 checkRating()
 endMessage()
-
-    
